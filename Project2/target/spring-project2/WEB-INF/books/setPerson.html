@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Make A Reader</title>
+</head>
+<body>
+<form th:method="PATCH" th:action="@{/books/{id}/settedPerson (id = ${book.getId()})}">
+  <label for="person">Choose Student</label>
+  <select th:object="${person}"  th:field="*{id}" id="person">
+    <div th:each="x : ${people}">
+      <option th:text="${x.getName()}" th:value="${x.getId()}"></option>
+    </div>
+  </select>
+  <input type="submit" value="Make as a Reader !">
+</form>
+</body>
+</html>

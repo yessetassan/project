@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Book Page</title>
+</head>
+<body>
+<p>About book</p>
+<p > Name : </p>
+<p th:text="${book.getName()}"></p>
+<p > Year : </p>
+<p th:text="${book.getYear()}"></p>
+<p th:text="${date2}"></p>
+<p th:text="${book.getDate()}"></p>
+<div th:if="${check}">
+  The book is Reading by :
+  <div th:if="${(date2.getMinutes() + date2.getHours() * 60 + date2.getDay() * 24 * 60) -
+  (book.getDate().getMinutes() + book.getDate().getHours() * 60 + book.getDate().getDay() * 24 * 60) < 10}">
+    <p style="color:green;" th:text="${person.getName()}"></p>
+  </div>
+  <div th:if="${(date2.getMinutes() + date2.getHours() * 60 + date2.getDay() * 24 * 60) -
+  (book.getDate().getMinutes() + book.getDate().getHours() * 60 + book.getDate().getDay() * 24 * 60) >= 10}">
+    <p style="color:red;" th:text="${person.getName()}"></p>
+  </div>
+</div>
+<div th:if="${!check}">
+  <p> The book is empty</p>
+</div>
+<div th:if="${!people.isEmpty()}">
+  <a th:href="@{/books/{id}/setPerson (id = ${book.getId()})}">Set a new Reader</a>
+</div>
+<br>
+<hr>
+<a th:href="@{/books/{id}/edit (id = ${book.getId()})}">Edit Book</a>
+<br>
+<form  style="color: blue" th:method="DELETE" th:action="@{/books/{id}/delete (id = ${book.getId()})}">
+<input type="submit" value="Delete"></form>
+</body>
+</html>

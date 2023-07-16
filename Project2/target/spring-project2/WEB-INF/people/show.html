@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Page</title>
+</head>
+<body>
+<p>Full INFO about Student</p>
+Full Name is :
+<p th:text="${person.getName()}"></p>
+Age :
+<p th:text="${person.getAge()}"></p>
+Email :
+<p th:text="${person.getEmail()}"></p>
+<br>
+<hr/>
+<div th:if="${!books.isEmpty()}">
+    <p>The Student got like this book(s) : </p>
+    <div th:each="x : ${books}">
+        <div th:if="${(date2.getMinutes() + date2.getHours() * 60 + date2.getDay() * 24 * 60) -
+  (x.getDate().getMinutes() + x.getDate().getHours() * 60 + x.getDate().getDay() * 24 * 60) < 10}">
+            <p style="color:green;" th:text="${x.getName()} + ', ' + ${x.getYear()}"></p>
+        </div>
+        <div th:if="${(date2.getMinutes() + date2.getHours() * 60 + date2.getDay() * 24 * 60) -
+  (x.getDate().getMinutes() + x.getDate().getHours() * 60 + x.getDate().getDay() * 24 * 60) >= 10}">
+            <p style="color:red;" th:text="${x.getName()} + ', ' + ${x.getYear()}"></p>
+        </div>
+    </div>
+</div>
+<div th:if="${books.isEmpty()}">
+    <p>The Student didn't get ant book </p>
+</div>
+<br>
+<hr/>
+<a th:href="@{/people/{id}/edit (id = ${person.getId()})}">Edit Person</a>
+<br>
+<form th:method="DELETE" th:action="@{/people/{id}/delete (id = ${person.getId()})}">
+    <input type="submit" value="Delete!">
+</form>
+</body>
+</html>
